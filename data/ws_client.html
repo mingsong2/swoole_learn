@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>swoole-client测试</h1>
+    <script>
+        var wsUrl = "ws://web.meiliancheng.com:8812"; 
+        var websocket = new WebSocket(wsUrl);
+        // 实例对象的onopen属性
+        websocket.onopen = function(evt){
+            // 向服务端发送数据
+            websocket.send('hello swoole');
+            console.log('connected to swoole server');
+        }
+        // 接受服务端数据
+        websocket.onmessage = function(evt){
+            console.log('get message fron swoole server,data:' + evt.data);
+        }
+        websocket.onclose = function(evt){
+            console.log('close')
+        }
+        websocket.onerror = function(evt,e){
+            console.log('error' + evt.data)
+        }
+    </script>
+</body>
+</html>
