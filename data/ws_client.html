@@ -11,7 +11,7 @@
     <script>
         var wsUrl = "ws://web.meiliancheng.com:8812"; 
         var websocket = new WebSocket(wsUrl);
-        // 实例对象的onopen属性
+        // 连接ws服务
         websocket.onopen = function(evt){
             // 向服务端发送数据
             websocket.send('hello swoole');

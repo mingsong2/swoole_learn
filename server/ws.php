@@ -28,6 +28,12 @@ class Ws{
     public function onOpen($ws,$request){
         print_r("客户".$request->fd."连接swoole服务"); // 客户端的唯一标识 $request->fd
         echo "\n";
+        if($request->fd == 1){
+            // 每两秒执行
+            swoole_timer_tick(2000,function($timer_id){
+                echo "2s: timerId:{$timer_id}\n"; 
+            });
+        }
     }
 
     /**
@@ -45,7 +51,11 @@ class Ws{
             'task' => 1,
             'fd' => $frame->fd
         ];
-        $ws->task($data);
+        // $ws->task($data);
+        swoole_timer_after(5000,function() use($ws,$frame){
+            echo "使用swoole定时器5s后打印";
+            $ws->push($frame->fd,"swoole定时器5s后推送的内容");
+        });
 
         // 下面的代码不会等待上面执行完毕再执行
         $ws->push($frame->fd,"服务端推送的数据".date('Y-m-d H:i:s'));
