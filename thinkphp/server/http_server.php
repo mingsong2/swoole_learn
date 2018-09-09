@@ -27,14 +27,14 @@ $http->on('request', function ($request, $response) use($http){
             $_SERVER[strtoupper($k)] = $v;
         }
     }
-    // if(!empty($_GET)){
-    //     unset($_GET);
-    // }
+
+    $_GET = [];
     if(isset($request->get)){
         foreach($request->get as $k => $v){
             $_GET = $v;
         }
     }
+    $_POST = [];
     if(isset($request->post)){
         foreach($request->post as $k => $v){
             $_POST = $v;
